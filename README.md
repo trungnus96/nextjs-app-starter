@@ -5,4 +5,4 @@
 - Redux
 
 
-**Trung Nguyen**
+**Trung Nguyen** 08-06-2019
