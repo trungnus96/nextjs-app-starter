@@ -2,31 +2,58 @@ import Document from "next/document";
 import { Fragment } from "react";
 import flush from "styled-jsx/server";
 import { ServerStyleSheet } from "styled-components";
+import { ServerStyleSheets } from "@material-ui/styles";
+
+// postcss
+import postcss from "postcss";
+import autoprefixer from "autoprefixer";
+import cssnano from "cssnano";
+
+const prefixer = postcss([autoprefixer]);
+const minifier = postcss([cssnano]);
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet();
+    const styled_sheet = new ServerStyleSheet();
+    const material_ui_sheets = new ServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          enhanceApp: App => props =>
+            styled_sheet.collectStyles(
+              material_ui_sheets.collect(<App {...props} />)
+            )
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+
+      let material_ui_css = material_ui_sheets.toString();
+      if (process.env.NODE_ENV === "production") {
+        const result1 = await prefixer.process(material_ui_css);
+        material_ui_css = result1.css;
+        const result2 = await minifier.process(material_ui_css);
+        material_ui_css = result2.css;
+      }
+
       return {
         ...initialProps,
         styles: (
           <Fragment>
             {initialProps.styles}
-            {sheet.getStyleElement()}
+            {styled_sheet.getStyleElement()}
+            <style
+              id="jss-server-side"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: material_ui_css }}
+            />
             {flush() || null}
           </Fragment>
         )
       };
     } finally {
-      sheet.seal();
+      styled_sheet.seal();
     }
   }
 }

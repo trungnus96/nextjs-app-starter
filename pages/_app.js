@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import App, { Container } from "next/app";
+import App from "next/app";
 
 // material-ui
 import { ThemeProvider as MaterialUIThemeProvider } from "@material-ui/styles";
@@ -36,18 +36,16 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
-      <Container>
-        <Provider store={reduxStore}>
-          <MaterialUIThemeProvider theme={material_ui_theme}>
-            <StyledComponentsThemeProvider theme={styled_components_theme}>
-              <Fragment>
-                <GlobalStyle />
-                <Component {...pageProps} />
-              </Fragment>
-            </StyledComponentsThemeProvider>
-          </MaterialUIThemeProvider>
-        </Provider>
-      </Container>
+      <Provider store={reduxStore}>
+        <MaterialUIThemeProvider theme={material_ui_theme}>
+          <StyledComponentsThemeProvider theme={styled_components_theme}>
+            <Fragment>
+              <GlobalStyle />
+              <Component {...pageProps} />
+            </Fragment>
+          </StyledComponentsThemeProvider>
+        </MaterialUIThemeProvider>
+      </Provider>
     );
   }
 }
