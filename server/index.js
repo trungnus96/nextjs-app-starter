@@ -22,7 +22,7 @@ app
 
     server.use(
       "/static",
-      express.static(__dirname + "/static", { maxAge: "1d" })
+      express.static(__dirname + "../static", { maxAge: "1d" })
     );
 
     server.get("*", (req, res) => {
