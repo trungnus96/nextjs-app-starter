@@ -71,7 +71,6 @@ export default class MyDocument extends Document {
           />
           <link rel="manifest" href="/static/manifest.json"></link>
           <link rel="shortcut icon" href="/static/favicon.ico"></link>
-          <title>NextJS App Starter</title>
         </Head>
         <body>
           <Main />
