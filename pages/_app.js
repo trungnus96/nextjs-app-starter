@@ -14,6 +14,15 @@ import styled_components_theme from "../src/styles/styled-components/theme";
 import { Provider } from "react-redux";
 import withRedux from "../src/HOCs/withRedux";
 
+// NProgress
+import NProgress from "nprogress";
+import "../src/styles/nprogress.scss";
+
+import Router from "next/router";
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
