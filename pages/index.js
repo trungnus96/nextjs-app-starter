@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Link from "next/link";
 
 // actions
 import { increaseCount } from "../src/actions/counter";
@@ -27,6 +28,9 @@ function Index(props) {
 
   return (
     <IndexPage>
+      <Link href="/hello">
+        <a>Hello</a>
+      </Link>
       <h2>Counter: {value}</h2>
       <Button variant="contained" color="primary" onClick={increaseCount}>
         +
@@ -51,7 +55,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(memo(Index));
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
