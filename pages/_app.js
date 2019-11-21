@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 import App from "next/app";
 
+// Normalize
+import { Normalize } from "styled-normalize";
+
 // material-ui
 import { ThemeProvider as MaterialUIThemeProvider } from "@material-ui/styles";
 import material_ui_theme from "../src/styles/material-ui/theme";
@@ -49,6 +52,7 @@ class MyApp extends App {
         <MaterialUIThemeProvider theme={material_ui_theme}>
           <StyledComponentsThemeProvider theme={styled_components_theme}>
             <Fragment>
+              <Normalize />
               <GlobalStyle />
               <Component {...pageProps} />
             </Fragment>
