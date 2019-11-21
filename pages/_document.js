@@ -1,4 +1,4 @@
-import Document from "next/document";
+import Document, { Head, Main, NextScript } from "next/document";
 import { Fragment } from "react";
 import flush from "styled-jsx/server";
 import { ServerStyleSheet } from "styled-components";
@@ -55,5 +55,29 @@ export default class MyDocument extends Document {
     } finally {
       styled_sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <html lang="en">
+        <Head>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content={
+              "user-scalable=0, initial-scale=1, " +
+              "minimum-scale=1, width=device-width, height=device-height"
+            }
+          />
+          <link rel="manifest" href="/static/manifest.json"></link>
+          <link rel="shortcut icon" href="/static/favicon.ico"></link>
+          <title>NextJS App Starter</title>
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    );
   }
 }
