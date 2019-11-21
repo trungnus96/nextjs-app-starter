@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -26,11 +26,15 @@ function Index(props) {
   // redux action props
   const { increaseCount } = props;
 
+  // props
+  const { from_server } = props;
+
   return (
     <IndexPage>
       <Link href="/hello">
         <a>Hello</a>
       </Link>
+      <div>{from_server}</div>
       <h2>Counter: {value}</h2>
       <Button variant="contained" color="primary" onClick={increaseCount}>
         +
@@ -38,6 +42,12 @@ function Index(props) {
     </IndexPage>
   );
 }
+
+Index.getInitialProps = () => {
+  // do not use React.memo
+  return { from_server: "This is from server" }
+}
+
 
 function mapStateToProps(state) {
   const { counter } = state;
@@ -55,4 +65,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
