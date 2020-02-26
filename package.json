@@ -7,14 +7,13 @@
     "dev": "next",
     "build": "next build",
     "start": "NODE_ENV=development node index.js",
-    "start:prod": "NODE_ENV=production node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:prod": "NODE_ENV=production node index.js"
   },
-  "author": "",
+  "author": "Trung Nguyen",
   "license": "ISC",
   "dependencies": {
     "@babel/register": "7.8.3",
-    "@material-ui/core": "4.9.3",
+    "@material-ui/core": "4.9.4",
     "@material-ui/styles": "4.9.0",
     "@zeit/next-css": "1.0.1",
     "@zeit/next-sass": "1.0.1",
@@ -23,7 +22,8 @@
     "compression": "1.7.4",
     "cssnano": "4.1.10",
     "express": "4.17.1",
-    "helmet": "3.21.2",
+    "helmet": "3.21.3",
+    "hjs": "^0.0.6",
     "next": "9.2.2",
     "next-compose-plugins": "2.2.0",
     "node-sass": "4.13.1",
