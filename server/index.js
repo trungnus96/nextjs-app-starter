@@ -33,8 +33,6 @@ app
       express.static(__dirname + "/../static", { maxAge: "1d" })
     );
 
-    console.log(__dirname + "/../static");
-
     // api routes
     server.use("/api", api);
 
