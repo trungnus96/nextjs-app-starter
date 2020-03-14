@@ -1,5 +1,6 @@
 import express from "express";
 import next from "next";
+require("dotenv").config();
 const dev = process.env.NODE_ENV !== "production";
 const nextJsApp = next({ dev });
 const handler = nextJsApp.getRequestHandler();
