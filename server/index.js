@@ -1,51 +1,40 @@
 import express from "express";
 import next from "next";
-import path from "path";
-import compression from "compression";
-import helmet from "helmet";
-import bodyparser from "body-parser";
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handler = app.getRequestHandler();
+const nextJsApp = next({ dev });
+const handler = nextJsApp.getRequestHandler();
+
+// configure express
+import configureExpressApp from "./configureExpressApp";
 
 // api
 import api from "./api";
 
 const port = process.env.PORT || 3000;
 
-app
-  .prepare()
-  .then(() => {
-    const server = express();
+async function init() {
+  await nextJsApp.prepare();
 
-    // use helmet, compress, bodyParser.json
-    // set routes
-    server.use(helmet());
-    server.use(compression());
-    server.use(bodyparser.json());
+  const expressApp = express();
 
-    // view engine setup
-    server.set("views", path.join(__dirname, "views"));
-    server.set("view engine", "hjs");
+  await configureExpressApp(expressApp);
 
-    server.use(
-      "/static",
-      express.static(__dirname + "/../static", { maxAge: "1d" })
-    );
+  // api routes
+  expressApp.use("/api", api);
 
-    // api routes
-    server.use("/api", api);
-
-    server.get("*", (req, res) => {
-      return handler(req, res);
-    });
-
-    server.listen(port, err => {
-      if (err) throw err;
-      console.log(`> Ready on port ${port}`);
-    });
-  })
-  .catch(ex => {
-    console.error(ex.stack);
-    process.exit(1);
+  expressApp.get("*", (req, res) => {
+    return handler(req, res);
   });
+
+  expressApp.listen(port, err => {
+    if (err) throw err;
+    console.log(`🚀 Ready on port ${port}`);
+  });
+}
+
+try {
+  init();
+} catch (e) {
+  console.error(e.stack);
+  process.exit(1);
+}
