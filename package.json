@@ -26,7 +26,7 @@
     "helmet": "3.21.3",
     "hjs": "^0.0.6",
     "morgan": "^1.9.1",
-    "next": "9.3.0",
+    "next": "9.3.3",
     "next-compose-plugins": "2.2.0",
     "node-sass": "4.13.1",
     "nprogress": "0.2.0",
