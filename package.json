@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "postbuild": "next-on-netlify",
     "start": "NODE_ENV=development node index.js",
     "start:prod": "NODE_ENV=production node index.js"
   },
@@ -28,6 +29,7 @@
     "morgan": "^1.9.1",
     "next": "9.4.4",
     "next-compose-plugins": "2.2.0",
+    "next-on-netlify": "^2.3.2",
     "node-sass": "4.14.1",
     "nprogress": "0.2.0",
     "postcss": "7.0.32",
