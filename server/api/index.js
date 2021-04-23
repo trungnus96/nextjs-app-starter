@@ -1,9 +1,12 @@
 import express from "express";
+import helmet from "helmet";
 
 const router = express.Router();
 
-router.get("/", function(req, res) {
-  res.render('index', { title: `API - ${process.env.NODE_ENV}` });
+router.use(helmet());
+
+router.get("/", function (req, res) {
+  res.render("index", { title: `API - ${process.env.NODE_ENV}` });
 });
 
 export default router;

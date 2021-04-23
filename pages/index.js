@@ -11,7 +11,7 @@ import { increaseCount } from "../src/actions/counter";
 import { Button } from "@material-ui/core";
 
 const IndexPage = styled.div`
-  border: 2px solid ${props => props.theme.colors.black};
+  border: 2px solid ${(props) => props.theme.colors.black};
   padding: 10px;
   text-align: center;
   width: 268px;
@@ -45,21 +45,20 @@ function Index(props) {
 
 Index.getInitialProps = () => {
   // do not use React.memo
-  return { from_server: "This is from server" }
-}
-
+  return { from_server: "This is from server" };
+};
 
 function mapStateToProps(state) {
   const { counter } = state;
   return {
-    counter
+    counter,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      increaseCount
+      increaseCount,
     },
     dispatch
   );

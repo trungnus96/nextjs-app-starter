@@ -1,41 +1,32 @@
 import express from "express";
 import next from "next";
 require("dotenv").config();
-const dev = process.env.NODE_ENV !== "production";
-const nextJsApp = next({ dev });
-const handler = nextJsApp.getRequestHandler();
 
 // configure express
 import configureExpressApp from "./configureExpressApp";
 
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
 // api
 import api from "./api";
 
-const port = process.env.PORT || 3000;
+app.prepare().then(async () => {
+  const server = express();
 
-async function init() {
-  await nextJsApp.prepare();
-
-  const expressApp = express();
-
-  await configureExpressApp(expressApp);
+  configureExpressApp(server);
 
   // api routes
-  expressApp.use("/api", api);
+  server.use("/api", api);
 
-  expressApp.get("*", (req, res) => {
-    return handler(req, res);
+  server.all("*", (req, res) => {
+    return handle(req, res);
   });
 
-  expressApp.listen(port, err => {
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log(`🚀 Ready on port ${port}`);
   });
-}
-
-try {
-  init();
-} catch (e) {
-  console.error(e.stack);
-  process.exit(1);
-}
+});

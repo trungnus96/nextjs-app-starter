@@ -1,4 +1,11 @@
 [build]
-  command   = "npm run build"
-  functions = "out_functions"
-  publish   = "out_publish"
+command = "npm run build"
+functions = "out_functions"
+publish = "out_publish"
+
+[[headers]]
+# Define which paths this specific [[headers]] block will cover.
+for = "/**/*"
+
+[headers.values]
+Access-Control-Allow-Origin = "*"
