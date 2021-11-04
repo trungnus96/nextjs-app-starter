@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 
 // a theme with custom primary and secondary color.
 // it's optional.
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       light: blue[700],
