@@ -18,7 +18,7 @@ import { useStore } from "../src/HOCs/withRedux";
 
 // NProgress
 import NProgress from "nprogress";
-import "../src/styles/nprogress.scss";
+import "../src/styles/nprogress.css";
 
 import Router from "next/router";
 Router.events.on("routeChangeStart", () => NProgress.start());
